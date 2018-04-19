@@ -23,12 +23,12 @@ class App extends Component {
                     className='form-control'
                     // value={ this.state. }
                     // onChange={ this. }
-                    placeholder='Enter amount due'
+                    placeholder=''
                     type='number'
                   />
                 </div>
                 <div className='panel-body'>
-                  <div className='dropdown'>
+                  <div className='priority'>
                     <button
                       className='btn btn-default dropdown-toggle'
                       type='button'
@@ -37,7 +37,7 @@ class App extends Component {
                       aria-haspopup='true'
                       aria-expanded='true'
                     >
-                      Dropdown
+                      Select a Priority
                       <span className='caret' />
                     </button>
                     <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
