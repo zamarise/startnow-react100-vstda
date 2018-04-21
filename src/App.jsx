@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const items = [];
-const priorityLevel = [1, 2, 3];
+const selectPriority = [{ High: 1, Medium: 2, Low: 3 }];
 
 items.push({ index: 1, value: 'Pick up dry cleaning', done: false });
 
@@ -103,10 +103,15 @@ class App extends Component {
                   <p />
                   <label>
                     <p>Priority</p>
-                    <select value={ this.state.value } onChange={ this.handlePriorityDropdown }>
-                      <option value='high'>High priority</option>
-                      <option value='medium'>Medium priority</option>
-                      <option value='low'>Low priority</option>
+                    <select
+                      label='Priority'
+                      options={ selectPriority }
+                      value={ this.state.priorityValue }
+                      onChange={ this.handlePriorityDropdown }
+                    >
+                      <option value='1'>High priority</option>
+                      <option value='2'>Medium priority</option>
+                      <option value='3'>Low priority</option>
                     </select>
                   </label>
                 </form>
