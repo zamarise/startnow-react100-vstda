@@ -12,18 +12,13 @@ class App extends Component {
       priorityValue: ''
     };
 
-    this.handlePriorityDropdown = this.handlePriorityDropdown.bind(this);
+    // this.handlePriorityDropdown = this.handlePriorityDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitTodo = this.handleSubmitTodo.bind(this);
-    this.handleSave = this.handleSave.bind(this);
+    // this.handleSave = this.handleSave.bind(this);
     this.handleAddText = this.handleAddText.bind(this);
+    // this.handleList = this.handleList.bind(this);
   }
-
-  // handleAddText() {
-  //   const newArray = this.state.toDoItem.slice();
-  //   newArray.push({ text: event.target.text });
-  //   this.setState({ toDoItem: newArray });
-  // }
 
   handleChange(e) {
     this.setState({ text: e.target.value });
@@ -34,19 +29,21 @@ class App extends Component {
     this.setState(this.state);
   }
 
-  handleSubmitTodo(event) {
+  handleSubmitTodo(e) {
     alert(`A to-do item was submitted: ${this.state.text}`);
-    event.preventDefault();
+    e.preventDefault();
   }
 
-  handlePriorityDropdown(event) {
-    this.setState({ priorityMenu: event.target.toDoItem });
-  }
+  // handlePriorityDropdown(event) {
+  //   this.setState({ priorityMenu: event.target.toDoItem });
+  // }
 
-  handleSave(event) {
-    alert('Your to-do item was saved!');
-    event.preventDefault();
-  }
+  // handleSave(event) {
+  //   alert('Your to-do item was saved!');
+  //   event.preventDefault();
+  // }
+
+  // function HandleList() => toDoItem.map(toDoItem => <li>{toDoItem}</li>);
 
   render() {
     return (
@@ -68,15 +65,15 @@ class App extends Component {
                   <textarea type='text' onChange={ this.handleChange } />
                 </label>
                 <p />
-                {/* <label>
-                    <p>How much of a priority is this?</p>
-                    <select value={ this.state.priorityValue } onChange={ this.handlePriorityDropdown }>
-                      <option value='1'>High priority</option>
-                      <option value='2'>Medium priority</option>
-                      <option value='3'>Low priority</option>
-                    </select>
-                  </label>
-                  <p /> */}
+                <label>
+                  <p>How much of a priority is this?</p>
+                  <select value={ this.state.priorityValue } onChange={ this.handlePriorityDropdown }>
+                    <option value='1'>High priority</option>
+                    <option value='2'>Medium priority</option>
+                    <option value='3'>Low priority</option>
+                  </select>
+                </label>
+                <p />
               </div>
               <div className='panel-footer'>
                 <button
@@ -84,6 +81,7 @@ class App extends Component {
                   onClick={ () => {
                     this.handleAddText();
                     this.handleSubmitTodo();
+                    this.handleList();
                   } }
                 >
                   Add
@@ -97,6 +95,7 @@ class App extends Component {
               <div className='panel-heading panel-title'>View To-dos</div>
               <div className='panel-body'>
                 {this.state.text}
+                <div>{/* <ul>${...toDoItem}</ul> */}</div>
                 {/* <form onSubmit={ this.handleSave }>
                   <label>
                     <p>Edit Description</p>
