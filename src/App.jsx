@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { WSATYPE_NOT_FOUND } from 'constants';
 
 class App extends Component {
   constructor(props) {
@@ -55,14 +56,6 @@ class App extends Component {
 
   // function HandleList() => toDoItem.map(toDoItem => <li>{toDoItem}</li>);
 
-  // class ListTodo extends Component {
-  //   constructor(props)
-  //   super(props);
-
-  //   this.state = {
-
-  //   }
-  // }
   render() {
     return (
       <div className='container'>
@@ -70,9 +63,7 @@ class App extends Component {
         <p className='lead bg-light text-gray-dark text-center'>
           A very simple to-do app made in React
         </p>
-
         <hr />
-
         <div className='row'>
           <div className='col-sm-4'>
             <form onSubmit={ this.handleSubmit } className='panel panel-default'>
@@ -110,51 +101,41 @@ class App extends Component {
               </div>
             </form>
           </div>
-
           <div className='col-sm-8'>
-            <div className='panel panel-default'>
+            <form onSubmit={ this.handleSubmit } className='panel panel-default'>
               <div className='panel-heading panel-title'>View To-dos</div>
               <div className='panel-body'>
                 <strong>Welcome to Very Simple To-do App!</strong>
                 <p>Get started now by adding a new task.</p>
-
-                <div>{/* <ul>${...toDoItem}</ul> */}</div>
+                <ul>
+                  {this.state.todos.map(todos => (
+                    <li key={ todos.description }>{todos.description}</li>
+                  ))}
+                </ul>
+                {/* <div>{/* <ul>${...toDoItem}</ul> */}
                 {/* <form onSubmit={ this.handleSave }>
                   <label>
                     <p>Edit Description</p>
                     <textarea value={ this.state.text } onChange={ this.handleChange } />
                   </label>
                   <p />
-                  <label>
-                    <p>Priority</p>
-                    <select
-                      label='Priority'
-                      // options={ selectPriority }
-                      value={ this.state.priorityValue }
-                      onChange={ this.handlePriorityDropdown }
-                    >
-                      <option value='1'>High priority</option>
-                      <option value='2'>Medium priority</option>
-                      <option value='3'>Low priority</option>
-                    </select>
-                  </label>
-                </form>
 
-                <p>
-                  <button
+                <p> */}
+                {/* <button
                     type='submit'
-                    value='Submit'
                     className='btn btn-default pull-right'
                     onClick={ this.handleSave }
                   >
                     Save
                   </button> */}
-                {/* </p> */}
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
+      // </div>
+      //   </div>
+      // </div>
     );
   }
 }
