@@ -5,37 +5,47 @@ class App extends Component {
     super(props);
 
     this.state = {
-      priorityMenu: 'Select a Priority',
-      addTodoValue: 'Add your to-do here!',
-      text: '',
-      toDoItem: ['zero', 'one'],
-      priorityValue: ''
+      description: '',
+      priority: '2',
+      todos: []
     };
 
-    // this.handlePriorityDropdown = this.handlePriorityDropdown.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmitTodo = this.handleSubmitTodo.bind(this);
-    // this.handleSave = this.handleSave.bind(this);
-    this.handleAddText = this.handleAddText.bind(this);
-    // this.handleList = this.handleList.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
-    this.setState({ text: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleAddText() {
-    this.state.toDoItem.push(this.state.text);
-    this.setState(this.state);
-  }
-
-  handleSubmitTodo(e) {
-    alert(`A to-do item was submitted: ${this.state.text}`);
+  handleSubmit(e) {
     e.preventDefault();
+    const todos = [...this.state.todos];
+    const todoItem = {
+      description: this.state.description,
+      priority: this.state.priority
+    };
+
+    todos.push(todoItem);
+
+    this.setState({ todos });
   }
 
-  // handlePriorityDropdown(event) {
-  //   this.setState({ priorityMenu: event.target.toDoItem });
+  // handleAddText() {
+  //   this.state.toDoItem.push(this.state.text);
+  //   this.setState(this.state);
+  // }
+
+  // handleSubmitTodo(e) {
+  //   alert(`A to-do item was submitted: ${this.state.text}`);
+  //   e.preventDefault();
+  // }
+
+  // handlePriorityDropdown(e) {
+  //   const target = e.target;
+  //   const value = target.type === 'dropdown' ? target.select : target.value;
+  //   const name = tar
+  //   this.setState({ priorityMenu: e.target.toDoItem });
   // }
 
   // handleSave(event) {
@@ -45,6 +55,14 @@ class App extends Component {
 
   // function HandleList() => toDoItem.map(toDoItem => <li>{toDoItem}</li>);
 
+  // class ListTodo extends Component {
+  //   constructor(props)
+  //   super(props);
+
+  //   this.state = {
+
+  //   }
+  // }
   render() {
     return (
       <div className='container'>
@@ -57,17 +75,27 @@ class App extends Component {
 
         <div className='row'>
           <div className='col-sm-4'>
-            <div className='panel panel-default'>
+            <form onSubmit={ this.handleSubmit } className='panel panel-default'>
               <div className='panel-heading panel-title'>Add New To-do</div>
               <div className='panel-body'>
-                <label>
+                <label htmlFor='description'>
                   <p>I want to...</p>
-                  <textarea type='text' onChange={ this.handleChange } />
+                  <textarea
+                    id='description'
+                    name='description'
+                    value={ this.state.description }
+                    onChange={ this.handleChange }
+                  />
                 </label>
                 <p />
-                <label>
+                <label htmlFor='priority'>
                   <p>How much of a priority is this?</p>
-                  <select value={ this.state.priorityValue } onChange={ this.handlePriorityDropdown }>
+                  <select
+                    id='priority'
+                    name='priority'
+                    value={ this.state.priority }
+                    onChange={ this.handleChange }
+                  >
                     <option value='1'>High priority</option>
                     <option value='2'>Medium priority</option>
                     <option value='3'>Low priority</option>
@@ -76,25 +104,20 @@ class App extends Component {
                 <p />
               </div>
               <div className='panel-footer'>
-                <button
-                  className='btn btn-default btn-block'
-                  onClick={ () => {
-                    this.handleAddText();
-                    this.handleSubmitTodo();
-                    this.handleList();
-                  } }
-                >
+                <button type='submit' className='btn btn-default btn-block'>
                   Add
                 </button>
               </div>
-            </div>
+            </form>
           </div>
 
           <div className='col-sm-8'>
             <div className='panel panel-default'>
               <div className='panel-heading panel-title'>View To-dos</div>
               <div className='panel-body'>
-                {this.state.text}
+                <strong>Welcome to Very Simple To-do App!</strong>
+                <p>Get started now by adding a new task.</p>
+
                 <div>{/* <ul>${...toDoItem}</ul> */}</div>
                 {/* <form onSubmit={ this.handleSave }>
                   <label>
