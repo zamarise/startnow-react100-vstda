@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
-import { WSATYPE_NOT_FOUND } from 'constants';
 
 class App extends Component {
+  static getColor(priority) {
+    switch (priority) {
+      case '3':
+        return 'success';
+      case '2':
+        return 'warning';
+      case '1':
+        return 'danger';
+      default:
+        return 'default';
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -108,8 +120,14 @@ class App extends Component {
                 <strong>Welcome to Very Simple To-do App!</strong>
                 <p>Get started now by adding a new task.</p>
                 <ul>
-                  {this.state.todos.map(todos => (
-                    <li key={ todos.description }>{todos.description}</li>
+                  {this.state.todos.map((todo, index) => (
+                    <li
+                      key={ todo.description + index }
+                      className={ `alert alert-${App.getColor(todo.priority)}` }
+                    >
+                      <input type='checkbox' />
+                      {todo.description}
+                    </li>
                   ))}
                 </ul>
                 {/* <div>{/* <ul>${...toDoItem}</ul> */}
