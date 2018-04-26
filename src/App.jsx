@@ -41,7 +41,7 @@ class App extends Component {
 
     todos.push(todoItem);
 
-    this.setState({ todos });
+    this.setState({ todos, description: '' });
   }
 
   render() {
