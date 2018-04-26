@@ -44,30 +44,6 @@ class App extends Component {
     this.setState({ todos });
   }
 
-  // handleAddText() {
-  //   this.state.toDoItem.push(this.state.text);
-  //   this.setState(this.state);
-  // }
-
-  // handleSubmitTodo(e) {
-  //   alert(`A to-do item was submitted: ${this.state.text}`);
-  //   e.preventDefault();
-  // }
-
-  // handlePriorityDropdown(e) {
-  //   const target = e.target;
-  //   const value = target.type === 'dropdown' ? target.select : target.value;
-  //   const name = tar
-  //   this.setState({ priorityMenu: e.target.toDoItem });
-  // }
-
-  // handleSave(event) {
-  //   alert('Your to-do item was saved!');
-  //   event.preventDefault();
-  // }
-
-  // function HandleList() => toDoItem.map(toDoItem => <li>{toDoItem}</li>);
-
   render() {
     return (
       <div className='container'>
