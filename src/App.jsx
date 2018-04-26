@@ -4,7 +4,7 @@ class App extends Component {
   static getColor(priority) {
     switch (priority) {
       case '3':
-        return 'success';
+        return 'info';
       case '2':
         return 'warning';
       case '1':
