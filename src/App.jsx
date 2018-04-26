@@ -4,11 +4,11 @@ class App extends Component {
   static getColor(priority) {
     switch (priority) {
       case '3':
-        return 'info';
+        return 'danger';
       case '2':
         return 'warning';
       case '1':
-        return 'danger';
+        return 'success';
       default:
         return 'default';
     }
@@ -64,6 +64,7 @@ class App extends Component {
                     name='description'
                     value={ this.state.description }
                     onChange={ this.handleChange }
+                    className='create-todo-text'
                   />
                 </label>
                 <p />
@@ -74,16 +75,17 @@ class App extends Component {
                     name='priority'
                     value={ this.state.priority }
                     onChange={ this.handleChange }
+                    className='create-todo-priority'
                   >
-                    <option value='1'>High priority</option>
+                    <option value='3'>High priority</option>
                     <option value='2'>Medium priority</option>
-                    <option value='3'>Low priority</option>
+                    <option value='1'>Low priority</option>
                   </select>
                 </label>
                 <p />
               </div>
               <div className='panel-footer'>
-                <button type='submit' className='btn btn-default btn-block'>
+                <button type='submit' className='btn btn-default btn-block create-todo'>
                   Add
                 </button>
               </div>
