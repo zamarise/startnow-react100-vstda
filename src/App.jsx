@@ -111,7 +111,7 @@ class App extends Component {
                         style={ { backgroundColor: 'transparent', border: 'none' } }
                       >
                         <span
-                          className='glyphicon glyphicon-edit text-primary'
+                          className='glyphicon glyphicon-trash text-danger delete-todo'
                           aria-hidden='true'
                         />
                       </button>
@@ -121,7 +121,7 @@ class App extends Component {
                         style={ { backgroundColor: 'transparent', border: 'none' } }
                       >
                         <span
-                          className='glyphicon glyphicon-trash text-danger'
+                          className='glyphicon glyphicon-edit text-primary edit-todo'
                           aria-hidden='true'
                         />
                       </button>
