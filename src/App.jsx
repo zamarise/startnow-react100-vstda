@@ -19,12 +19,14 @@ class App extends Component {
 
     this.state = {
       description: '',
-      priority: '2',
+      priority: '',
+      // checked: false,
       todos: []
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
   }
 
   handleChange(e) {
@@ -42,6 +44,12 @@ class App extends Component {
     todos.push(todoItem);
 
     this.setState({ todos, description: '' });
+  }
+
+  removeTodo(name, index) {
+    const todos = this.state.todos.slice();
+    todos.splice(index, 1);
+    this.setState({ todos });
   }
 
   render() {
@@ -77,6 +85,7 @@ class App extends Component {
                     onChange={ this.handleChange }
                     className='create-todo-priority'
                   >
+                    <option value='0'>Select a priority</option>
                     <option value='3'>High priority</option>
                     <option value='2'>Medium priority</option>
                     <option value='1'>Low priority</option>
@@ -91,67 +100,27 @@ class App extends Component {
               </div>
             </form>
           </div>
+
           <div className='col-sm-8'>
             <form onSubmit={ this.handleSubmit } className='panel panel-default'>
               <div className='panel-heading panel-title'>View To-dos</div>
               <div className='panel-body'>
-                <strong>Welcome to Very Simple To-do App!</strong>
-                <p>Get started now by adding a new task.</p>
+                {!this.state.todos.length && (
+                  <div>
+                    <strong>Welcome to Very Simple To-do App!</strong>
+                    <p>Get started now by adding a new task.</p>
+                  </div>
+                )}
                 <ul>
                   {this.state.todos.map((todo, index) => (
-                    <li
-                      key={ todo.description + index }
-                      className={ `alert alert-${App.getColor(todo.priority)}` }
-                    >
-                      <input type='checkbox' />
-                      {todo.description}
-                      <button
-                        type='button'
-                        className='btn btn-default btn-sm pull-right'
-                        style={ { backgroundColor: 'transparent', border: 'none' } }
-                      >
-                        <span
-                          className='glyphicon glyphicon-trash text-danger delete-todo'
-                          aria-hidden='true'
-                        />
-                      </button>
-                      <button
-                        type='button'
-                        className='btn btn-default btn-sm pull-right'
-                        style={ { backgroundColor: 'transparent', border: 'none' } }
-                      >
-                        <span
-                          className='glyphicon glyphicon-edit text-primary edit-todo'
-                          aria-hidden='true'
-                        />
-                      </button>
-                    </li>
+
                   ))}
                 </ul>
-                {/* <div>{/* <ul>${...toDoItem}</ul> */}
-                {/* <form onSubmit={ this.handleSave }>
-                  <label>
-                    <p>Edit Description</p>
-                    <textarea value={ this.state.text } onChange={ this.handleChange } />
-                  </label>
-                  <p />
-
-                <p> */}
-                {/* <button
-                    type='submit'
-                    className='btn btn-default pull-right'
-                    onClick={ this.handleSave }
-                  >
-                    Save
-                  </button> */}
               </div>
             </form>
           </div>
         </div>
       </div>
-      // </div>
-      //   </div>
-      // </div>
     );
   }
 }
