@@ -105,6 +105,26 @@ class App extends Component {
                     >
                       <input type='checkbox' />
                       {todo.description}
+                      <button
+                        type='button'
+                        className='btn btn-default btn-sm pull-right'
+                        style={ { backgroundColor: 'transparent', border: 'none' } }
+                      >
+                        <span
+                          className='glyphicon glyphicon-edit text-primary'
+                          aria-hidden='true'
+                        />
+                      </button>
+                      <button
+                        type='button'
+                        className='btn btn-default btn-sm pull-right'
+                        style={ { backgroundColor: 'transparent', border: 'none' } }
+                      >
+                        <span
+                          className='glyphicon glyphicon-trash text-danger'
+                          aria-hidden='true'
+                        />
+                      </button>
                     </li>
                   ))}
                 </ul>
