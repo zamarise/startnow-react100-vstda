@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
+import Todo from './Todo';
 
 class App extends Component {
-  static getColor(priority) {
-    switch (priority) {
-      case '3':
-        return 'danger';
-      case '2':
-        return 'warning';
-      case '1':
-        return 'success';
-      default:
-        return 'default';
-    }
-  }
-
   constructor(props) {
     super(props);
 
@@ -22,11 +10,13 @@ class App extends Component {
       priority: '',
       // checked: false,
       todos: []
+      // clicked: true
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
+    this.editTodo = this.editTodo.bind(this);
   }
 
   handleChange(e) {
@@ -50,6 +40,15 @@ class App extends Component {
     const todos = this.state.todos.slice();
     todos.splice(index, 1);
     this.setState({ todos });
+  }
+
+  editTodo(name, index) {
+    const todos = this.state.todos.slice();
+    todos.splice(index, 1);
+    this.setState({ todos });
+    // const showForm = null;
+    // const edit = isClicked ? showForm : null;
+    // const save = this.setState({ todos });
   }
 
   render() {
@@ -105,18 +104,36 @@ class App extends Component {
             <form onSubmit={ this.handleSubmit } className='panel panel-default'>
               <div className='panel-heading panel-title'>View To-dos</div>
               <div className='panel-body'>
-                {!this.state.todos.length && (
-                  <div>
-                    <strong>Welcome to Very Simple To-do App!</strong>
-                    <p>Get started now by adding a new task.</p>
-                  </div>
-                )}
                 <ul>
                   {this.state.todos.map((todo, index) => (
-
+                    <Todo
+                      key={ todo.description + index }
+                      todo={ todo }
+                      index={ index }
+                      todos={ this.state.todos }
+                      removeTodo={ this.removeTodo }
+                      editTodo={ this.editTodo }
+                    />
                   ))}
                 </ul>
               </div>
+              {(!this.state.todos.length && (
+                <div className='panel-footer'>
+                  <center>
+                    <strong>Welcome to Very Simple To-do App!</strong>
+                    <p>Get started now by adding a new task.</p>
+                  </center>
+                </div>
+              )) ||
+                (this.state.todos.length && (
+                  <div className='panel-footer'>
+                    <p>
+                      <button type='submit' className='btn btn-default pull-right'>
+                        Save
+                      </button>
+                    </p>
+                  </div>
+                ))}
             </form>
           </div>
         </div>
