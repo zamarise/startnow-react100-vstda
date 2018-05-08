@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Todo from './Todo';
+import TodoItems from './TodoItems';
 
 class App extends Component {
   constructor(props) {
@@ -8,27 +8,27 @@ class App extends Component {
     this.state = {
       description: '',
       priority: '',
-      // checked: false,
       todos: []
-      // clicked: true
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.count = 0;
+    this.handleTodoChange = this.handleTodoChange.bind(this);
+    this.handleTodoAdd = this.handleTodoAdd.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
     this.editTodo = this.editTodo.bind(this);
   }
 
-  handleChange(e) {
+  handleTodoChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-
-  handleSubmit(e) {
+  handleTodoAdd(e) {
     e.preventDefault();
     const todos = [...this.state.todos];
     const todoItem = {
       description: this.state.description,
-      priority: this.state.priority
+      priority: this.state.priority,
+      isEditing: false,
+      id: (this.count += 1)
     };
 
     todos.push(todoItem);
@@ -36,19 +36,19 @@ class App extends Component {
     this.setState({ todos, description: '' });
   }
 
-  removeTodo(name, index) {
+  removeTodo(todo, index) {
     const todos = this.state.todos.slice();
     todos.splice(index, 1);
     this.setState({ todos });
   }
 
-  editTodo(name, index) {
-    const todos = this.state.todos.slice();
-    todos.splice(index, 1);
+  editTodo(id) {
+    const todoIndex = this.state.todos.findIndex(todo => todo.id === id);
+    const todos = this.state.todos;
+
+    todos[todoIndex].isEditing = true;
+
     this.setState({ todos });
-    // const showForm = null;
-    // const edit = isClicked ? showForm : null;
-    // const save = this.setState({ todos });
   }
 
   render() {
@@ -61,8 +61,8 @@ class App extends Component {
         <hr />
         <div className='row'>
           <div className='col-sm-4'>
-            <form onSubmit={ this.handleSubmit } className='panel panel-default'>
-              <div className='panel-heading panel-title'>Add New To-do</div>
+            <form onSubmit={ this.handleTodoAdd } className='panel panel-default'>
+              <div className='panel-heading'>Add New To-do</div>
               <div className='panel-body'>
                 <label htmlFor='description'>
                   <p>I want to...</p>
@@ -70,7 +70,7 @@ class App extends Component {
                     id='description'
                     name='description'
                     value={ this.state.description }
-                    onChange={ this.handleChange }
+                    onChange={ this.handleTodoChange }
                     className='create-todo-text'
                   />
                 </label>
@@ -81,7 +81,7 @@ class App extends Component {
                     id='priority'
                     name='priority'
                     value={ this.state.priority }
-                    onChange={ this.handleChange }
+                    onChange={ this.handleTodoChange }
                     className='create-todo-priority'
                   >
                     <option value='0'>Select a priority</option>
@@ -101,40 +101,30 @@ class App extends Component {
           </div>
 
           <div className='col-sm-8'>
-            <form onSubmit={ this.handleSubmit } className='panel panel-default'>
-              <div className='panel-heading panel-title'>View To-dos</div>
+            <div className='panel panel-default'>
+              <div className='panel-heading'>View To-dos</div>
               <div className='panel-body'>
-                <ul>
-                  {this.state.todos.map((todo, index) => (
-                    <Todo
-                      key={ todo.description + index }
-                      todo={ todo }
-                      index={ index }
-                      todos={ this.state.todos }
-                      removeTodo={ this.removeTodo }
-                      editTodo={ this.editTodo }
-                    />
-                  ))}
-                </ul>
-              </div>
-              {(!this.state.todos.length && (
-                <div className='panel-footer'>
+                {!this.state.todos.length && (
                   <center>
                     <strong>Welcome to Very Simple To-do App!</strong>
                     <p>Get started now by adding a new task.</p>
                   </center>
-                </div>
-              )) ||
-                (this.state.todos.length && (
-                  <div className='panel-footer'>
-                    <p>
-                      <button type='submit' className='btn btn-default pull-right'>
-                        Save
-                      </button>
-                    </p>
-                  </div>
-                ))}
-            </form>
+                )}
+                <ul>
+                  {this.state.todos.map((todo, index) => (
+                    <TodoItems
+                      key={ todo.id }
+                      todo={ todo }
+                      index={ index }
+                      removeTodo={ this.removeTodo }
+                      editTodo={ this.editTodo }
+                      updateDescription={ this.state.description }
+                      updatePriority={ this.state.priority }
+                    />
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
