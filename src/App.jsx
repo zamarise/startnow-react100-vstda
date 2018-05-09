@@ -11,7 +11,6 @@ class App extends Component {
       todos: []
     };
 
-    this.count = 0;
     this.handleTodoChange = this.handleTodoChange.bind(this);
     this.handleTodoAdd = this.handleTodoAdd.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
@@ -26,9 +25,7 @@ class App extends Component {
     const todos = [...this.state.todos];
     const todoItem = {
       description: this.state.description,
-      priority: this.state.priority,
-      isEditing: false,
-      id: (this.count += 1)
+      priority: this.state.priority
     };
 
     todos.push(todoItem);
@@ -42,12 +39,9 @@ class App extends Component {
     this.setState({ todos });
   }
 
-  editTodo(id) {
-    const todoIndex = this.state.todos.findIndex(todo => todo.id === id);
-    const todos = this.state.todos;
-
-    todos[todoIndex].isEditing = true;
-
+  editTodo(todoIndex, todo) {
+    const todos = [...this.state.todos];
+    todos[todoIndex] = todo;
     this.setState({ todos });
   }
 
@@ -118,8 +112,6 @@ class App extends Component {
                       index={ index }
                       removeTodo={ this.removeTodo }
                       editTodo={ this.editTodo }
-                      updateDescription={ this.state.description }
-                      updatePriority={ this.state.priority }
                     />
                   ))}
                 </ul>

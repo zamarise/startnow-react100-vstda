@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import App from './App';
 
 class TodoItems extends Component {
   static getColor(priority) {
@@ -18,35 +17,37 @@ class TodoItems extends Component {
     super(props);
 
     this.state = {
-      newTaskDescription: '',
-      newTaskPriority: '',
+      description: this.props.todo.description,
+      priority: this.props.todo.priority,
       isEditing: false
     };
 
+    this.onTodoChange = this.onTodoChange.bind(this);
     this.onClickEdit = this.onClickEdit.bind(this);
     this.onSaveEdit = this.onSaveEdit.bind(this);
-    this.onTodoChange = this.onTodoChange.bind(this);
+  }
+
+  onTodoChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onClickEdit() {
     this.setState({ isEditing: !this.state.isEditing });
   }
 
-  onSaveEdit() {
+  onSaveEdit(e) {
+    e.preventDefault();
+    const { description, priority } = this.state;
+    const { index, editTodo } = this.props;
     this.setState({
-      isEditing: false,
-      description: this.state.newTaskDescription,
-      priority: this.state.newTaskPriority
+      isEditing: false
     });
+    editTodo(index, { description, priority });
   }
 
   // onSaveEdit() {
   //   this.props.onSaveEdit(this.state.description, this.state.priority);
   // }
-
-  onTodoChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
 
   render() {
     const todo = this.props.todo;
@@ -56,26 +57,26 @@ class TodoItems extends Component {
       return (
         <div className='alert col-sm-8 panel panel-default'>
           <div className='panel-body'>
-            <label htmlFor='newTaskDescription'>
+            <label htmlFor='description'>
               <p>
                 <strong>Description</strong>
               </p>
               <textarea
-                id='newTaskDescription'
-                name='newTaskDescription'
-                value={ this.state.newTaskDescription }
+                id='description'
+                name='description'
+                value={ this.state.description }
                 onChange={ this.onTodoChange }
                 className='update-todo-text'
               />
             </label>
 
             <p />
-            <label htmlFor='newTaskPriority'>
+            <label htmlFor='priority'>
               <p>Priority</p>
               <select
-                id='newTaskPriority'
-                name='newTaskPriority'
-                value={ this.state.newTaskPriority }
+                id='priority'
+                name='priority'
+                value={ this.state.priority }
                 onChange={ this.onTodoChange }
                 className='update-todo-priority'
               >
