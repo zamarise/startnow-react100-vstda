@@ -2,13 +2,13 @@
 
 > A ToDo app using React that allows users to enter their todo items and prioritize them based on their importance.
 
-This was my \_\_ project at Origin Code Academy. This Very Simple ToDo App (VSTDA) was made using React. React is a JavaScript library for building user interfaces.
+This was my twelfth project at Origin Code Academy. This Very Simple ToDo App (VSTDA) was made using React. React is a JavaScript library for building user interfaces.
 
-<!-- ![]() -->
+![](vstda-react.png)
 
 ## Background
 
-<!-- ![]() -->
+React is a JavaScript library for building user interfaces.
 
 ## Approach
 
@@ -34,9 +34,9 @@ npm start
 
 ## Contributing
 
-* Please follow the AirBnB styleguide.
+- Please follow the AirBnB styleguide.
 
-* Open a pull request, all contributions will be considered.
+- Open a pull request, all contributions will be considered.
 
 ## Contact Information
 
